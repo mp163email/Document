@@ -1,0 +1,12 @@
+[user]
+	name = mp163email
+	email = 574474931@qq.com
+[credential]
+	helper = manager
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	rs = reset
+	hist = log --pretty=format:\"%C(auto)%h %C(blue)%ad %C(auto)| %C(blue)%ar %C(auto)| %C(auto)%s%d %C(auto)| %C(green)%an %C(auto)| %C(green)%ae\" --graph --date=format:\"%Y-%m-%d %H:%M:%S\"
