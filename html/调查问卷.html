@@ -1,0 +1,97 @@
+<html>
+	<body>
+		<div width = "280px" ><center><h1>调查问卷</h1></center></div>
+		<table>
+		  <tr>
+			<td>1.鸡蛋是什么形状的？<span id="hidden1" style="display: none;">&nbsp;【D】</span></td>
+		  </tr>
+		  <tr>
+			<td>
+				<input type="radio" value="0" name="gender1">A:答案一</input><br>
+				<input type="radio" value="0" name="gender1">B:答案二</input><br>
+				<input type="radio" value="0" name="gender1">C:答案三</input><br>
+				<input type="radio" value="1" name="gender1">D:答案四</input><br>
+			</td>
+		  </tr>
+		  
+		  <tr>
+			<td>2.天空是什么颜色的？<span id="hidden2" style="display: none;">&nbsp;【A】</span></td>
+		  </tr>
+		  <tr>
+			<td>
+				<input  type="radio" value="1" name="gender2">A:答案一</input><br>
+				<input  type="radio" value="0" name="gender2">B:答案二</input><br>
+				<input  type="radio" value="0" name="gender2">C:答案三</input><br>
+				<input  type="radio" value="0" name="gender2">D:答案四</input><br>
+			</td>
+		  </tr>
+		  
+		  <tr>
+			<td>3.水有几种状态？<span id="hidden3" style="display: none;">&nbsp;【B】</span></td>
+		  </tr>
+		  <tr>
+			<td>
+				<input type="radio" value="0" name="gender3">A:答案一</input><br>
+				<input type="radio" value="1" name="gender3">B:答案二</input><br>
+				<input type="radio" value="0" name="gender3">C:答案三</input><br>
+				<input type="radio" value="0" name="gender3">D:答案四</input><br>
+			</td>
+		  </tr>
+		</table>
+		<div width = "280px" ><center><button onclick = "submit()">提交</button></center></div>
+		<div id="abc" name="result" width = "280px" ></div>
+	</body>
+</html>
+
+<script>
+	function submit() {
+
+	    var sum = 0;
+	    var scoreEveryOne = 10;
+	
+	    var check = '';
+	    var rt = "";
+		var rth = "";
+	    for (var x = 1; x <= 3; x++) {
+		    var ne = 'gender' + x;
+			var obj = document.getElementsByName(ne);
+			var isCheck = false;
+			for(var i = 0; i < obj.length; i++){
+				if(obj[i].checked){
+				    isCheck = true;
+					if (obj[i].value == 0) {
+						rt += "第" + x + "题回答错误\n" ;
+						rth += "第" + x + "题回答错误<br>" ;
+					} else {
+					    sum += scoreEveryOne;
+						rt += "第" + x + "题回答正确\n" ;
+						rth += "第" + x + "题回答正确<br>" ;
+					}
+				}
+			}
+			if (!isCheck) {
+				check += "第" + x + "题未进行选择\n";
+			}
+		}
+		rt += "总共得分：" + sum;
+		rth += "总共得分：" + sum;
+		
+		//弹出结果
+		if (check == '') {
+			alert(rt);
+		} else {
+			alert(check);
+			return;
+		}
+		
+		//将结果显示在页面上
+		document.getElementById('abc').innerHTML = rth;  
+		
+		//显示正确答案
+		for (var i = 1; i <=3; i++) {
+		   var n = 'hidden' + i;
+		   document.getElementById(n).style.display="";
+		}
+    }
+	
+</script>
