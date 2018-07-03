@@ -4,19 +4,19 @@
 		<span id="page1">
 		<table>
 		  <tr>
-			<td>1.鸡蛋是什么形状的？<span id="hidden1" style="display: none;">&nbsp;【D】</span></td>
+			<td>1.鸡蛋是什么形状的？<span id="hidden1" style="display: none;"><font size="3" color="red">&nbsp;【A, B, C】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
-				<input type="radio" value="0" name="gender1">A:答案一</input><br>
-				<input type="radio" value="0" name="gender1">B:答案二</input><br>
-				<input type="radio" value="0" name="gender1">C:答案三</input><br>
-				<input type="radio" value="1" name="gender1">D:答案四</input><br>
+				<input type="checkbox" value="1" name="gender1">A:答案一</input><br>
+				<input type="checkbox" value="1" name="gender1">B:答案二</input><br>
+				<input type="checkbox" value="1" name="gender1">C:答案三</input><br>
+				<input type="checkbox" value="0" name="gender1">D:答案四</input><br>
 			</td>
 		  </tr>
 		  
 		  <tr>
-			<td>2.天空是什么颜色的？<span id="hidden2" style="display: none;">&nbsp;【A】</span></td>
+			<td>2.天空是什么颜色的？<span id="hidden2" style="display: none;"><font size="3" color="red">&nbsp;【A】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -28,7 +28,7 @@
 		  </tr>
 		  
 		  <tr>
-			<td>3.水有几种状态？<span id="hidden3" style="display: none;">&nbsp;【B】</span></td>
+			<td>3.水有几种状态？<span id="hidden3" style="display: none;"><font size="3" color="red">&nbsp;【B】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -45,7 +45,7 @@
 		<span id="page2" style="display: none;">
 		<table>
 		  <tr>
-			<td>4.鸡蛋是什么形状的？<span id="hidden4" style="display: none;">&nbsp;【D】</span></td>
+			<td>4.鸡蛋是什么形状的？<span id="hidden4" style="display: none;"><font size="3" color="red">&nbsp;【D】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -57,7 +57,7 @@
 		  </tr>
 		  
 		  <tr>
-			<td>5.天空是什么颜色的？<span id="hidden5" style="display: none;">&nbsp;【A】</span></td>
+			<td>5.天空是什么颜色的？<span id="hidden5" style="display: none;"><font size="3" color="red">&nbsp;【A】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -69,7 +69,7 @@
 		  </tr>
 		  
 		  <tr>
-			<td>6.水有几种状态？<span id="hidden6" style="display: none;">&nbsp;【B】</span></td>
+			<td>6.水有几种状态？<span id="hidden6" style="display: none;"><font size="3" color="red">&nbsp;【B】</font></span></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -89,6 +89,7 @@
 
 <script>
 
+    //分页
 	function pageFuc (n) {
 		var ne = 'page' + n;
 		for (var i = 1; i <= 2; i++) {
@@ -98,6 +99,7 @@
 		document.getElementById(ne).style.display="";
 	}
 
+	//提交答卷
 	function submit() {
 
 	    var errorStr = ';';
@@ -111,20 +113,33 @@
 		    var ne = 'gender' + x;
 			var obj = document.getElementsByName(ne);
 			var isCheck = false;
+			
+			var sureSum = 0;
+			var chckedSum = 0;
 			for(var i = 0; i < obj.length; i++){
+			    if (obj[i].value == 1) {
+					sureSum += obj[i].value;
+				}
 				if(obj[i].checked){
 				    isCheck = true;
-					if (obj[i].value == 0) {
-						errorStr += x + ';';
-						rt += "第" + x + "题回答错误\n" ;
-						rth += "第" + x + "题回答错误<br>" ;
-					} else {
-					    sum += scoreEveryOne;
-						rt += "第" + x + "题回答正确\n" ;
-						rth += "第" + x + "题回答正确<br>" ;
+					if (obj[i].value == 1) {
+						chckedSum += obj[i].value;
 					}
 				}
 			}
+			
+			//判断对错
+			if (sureSum == chckedSum) {
+			    sum += scoreEveryOne;
+				rt += "第" + x + "题回答正确\n" ;
+				rth += "第" + x + "题回答正确<br>" ;
+			} else {
+				errorStr += x + ';';
+				rt += "第" + x + "题回答错误\n" ;
+				rth += "第" + x + "题回答错误<br>" ;
+			}
+			
+			//判断是否有没选择的
 			if (!isCheck) {
 				check += "第" + x + "题未进行选择\n";
 			}
@@ -143,7 +158,7 @@
 		//将结果显示在页面上
 		document.getElementById('abc').innerHTML = rth;  
 		
-		//显示正确答案
+		//答错的题,显示正确答案
 		for (var i = 1; i <=6; i++) {
 		    var va = ';' + i + ';';
 		   if (errorStr.indexOf(va) != -1) {
