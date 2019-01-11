@@ -1,0 +1,15 @@
+1.jdk8
+	1.接口默认（default)实现, 定义静态方法
+	2.方法引用  :: 符的使用
+	3.Lambda表达式-针对的是函数式接口（只有一个方法的接口）,系统提供了4中默认的函数式接口：Consumer-有参数无返回值, Supplier-没参数有返回值, Function-有返回值有参数, Predicate-有参数返回值是boolean
+	4.stream流的使用， 过滤filter，排序-sorted, 映射-map，规约-reduce，统计-min/max/sum/count/average....
+2.jdk9
+	1.模块化  moudle-info文件 用exports关键字表示向外暴露那些包， 用requires关键字表示引入哪些模块， 用到哪些引入哪些
+	2.Jshell，即时输入输出，能定义变量，方法，输出，编辑等
+	3.String低层存储由之前的char[]2个自己  换成了byte[]1个字节，更省空间。 StringBuff, Stringbuilder也是
+	4.try-catch， try()括号中可以放变量了，之前只能放一行声明， 多个用分号分开
+	5.Stream新加了几个方法  takewhile(Predicate), dropwhile(predicate), Stream.ofNullable(), Stream.iterater(),  Optional.stream()-optional转成stream
+	6.钻石操作符后面可以加大括号，用于设置集合等的子类   List<String> strList = new ArrayList<>(){{add(1); add(2)}}；
+	7.接口中可以设置private私有方法，为了配合jdk8中的默认方法
+	8.对List, Set, Map提供了of方法来创建只读的集合
+	9.新加了HttpClientAPI对HTTP_2.0和websocket的支持
