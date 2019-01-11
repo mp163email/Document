@@ -1,9 +1,11 @@
-1.jdk8
+
+1.jdk8 2019-01-08完成
 	1.接口默认（default)实现, 定义静态方法
 	2.方法引用  :: 符的使用
 	3.Lambda表达式-针对的是函数式接口（只有一个方法的接口）,系统提供了4中默认的函数式接口：Consumer-有参数无返回值, Supplier-没参数有返回值, Function-有返回值有参数, Predicate-有参数返回值是boolean
 	4.stream流的使用， 过滤filter，排序-sorted, 映射-map，规约-reduce，统计-min/max/sum/count/average....
-2.jdk9
+
+2.jdk9 2019-01-11完成
 	1.模块化  moudle-info文件 用exports关键字表示向外暴露那些包， 用requires关键字表示引入哪些模块， 用到哪些引入哪些
 	2.Jshell，即时输入输出，能定义变量，方法，输出，编辑等
 	3.String低层存储由之前的char[]2个自己  换成了byte[]1个字节，更省空间。 StringBuff, Stringbuilder也是
