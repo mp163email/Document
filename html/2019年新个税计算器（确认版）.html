@@ -1,0 +1,122 @@
+<html>
+	<body>
+		<h3><font color="red">免责声明：</font></h3><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<marquee width="500px"><font color="red">结果仅供参考，不对结果和由其造成的任何后果负责！</font></marquee></div>
+		<br>
+		<table>
+			<tr><td align="right">工资：</td><td><input type = "text" id = "gongzi"><font color="red">*</font></input></td></tr>
+			<tr><td align="right">五险一金：</td><td><input type = "text" id = "wuxianyijin"><font color="red">*</font></input></td></tr>
+			<tr><td align="right">专项抵扣：</td><td><input type = "text" id = "zhuanxiangdikou"><font color="red">*</font></input></td></tr>
+			<tr><td align="right">起征点：</td><td><input type = "text" id = "qizhengdian" value = "5000" readonly><font color="red">*</font></input></td></tr>
+			<tr><td colspan = "2" align = "middle"><input type = "submit" id = "submit" value = "点我计算个税" onclick = "calc()"></input></td></tr>
+		</table>
+		<p></p>
+		<div id = "result" style="width:800px;height:300px;overflow:aoto;"></div>
+	</body>
+	<script>
+		
+		/**
+			计算个税
+		*/
+		function calc () {
+			var gongzi = document.getElementById("gongzi").value;
+			var wuxianyijin = document.getElementById("wuxianyijin").value;
+			var qizhengdian = document.getElementById("qizhengdian").value;
+			var zhuanxiangdikou = document.getElementById("zhuanxiangdikou").value;
+			if (gongzi == '') {
+				alert('请输入工资');
+				return;
+			}
+			if (wuxianyijin == '') {
+				alert('请输入五险一金');
+				return;
+			}
+			if (zhuanxiangdikou == '') {
+				alert('请输入专项抵扣');
+				return;
+			}
+			
+			var ays = new Array(12);
+			var result = "";
+			for (var i = 1; i <= ays.length; i++) {
+				var nashuie = gongzi * i - qizhengdian * i - wuxianyijin * i - zhuanxiangdikou * i;//纳税额
+				var per = getPer(nashuie);//税率
+				var kouchushu = getKouChuShu (nashuie);//速算扣除数
+				var yueleiji = leiji(ays);//往月累积
+				var shui = nashuie * per - kouchushu - yueleiji;
+				result += i + "月---纳税额=" + nashuie + ",  税率=" + (per * 100) + "%, 速算扣除数=" + kouchushu + ", 累计交税=" + yueleiji + ",  当月交税=" + shui + "<br>";
+				ays[i - 1] = shui;
+			}
+			
+			var sum = leiji(ays);//往月累积
+			document.getElementById("result").innerHTML='';
+			document.getElementById("result").innerHTML=result + '<br>全年总计： ' + sum;
+		}
+		
+		function test () {
+			var ays = new Array(12);
+			ays[0] = 10;
+			ays[11] = 20;
+			var sum = leiji(ays);
+			alert(sum);
+		}
+		
+		/**
+			计算月累积
+		*/
+		function leiji (als) {
+			var sum = 0;
+			for (var i = 0; i < als.length; i++) {
+				if (als[i] != undefined) {
+					sum += als[i];
+				}
+			}
+			return sum;
+		}
+		
+		/**
+			获取速算扣除数
+		*/
+		function getKouChuShu (base) {
+			var per;
+			if (base <= 36000) {
+				per = 0;
+			} else if (base > 36000 && base <= 144000) {
+				per = 2520;
+			} else if (base > 144000 && base <= 300000) {
+				per = 16920;
+			} else if (base > 300000 && base <= 420000) {
+				per = 31920;
+			} else if (base > 420000 && base <= 660000) {
+				per = 52920;
+			} else if (base > 660000 && base <= 960000) {
+				per = 85920;
+			} else  {
+				per = 181920;
+			}
+			return per;
+		}
+		
+		/**
+			获取税率
+		*/
+		function getPer (base) {
+			var per;
+			if (base <= 36000) {
+				per = 0.03;
+			} else if (base > 36000 && base <= 144000) {
+				per = 0.1;
+			} else if (base > 144000 && base <= 300000) {
+				per = 0.2;
+			} else if (base > 300000 && base <= 420000) {
+				per = 0.25;
+			} else if (base > 420000 && base <= 660000) {
+				per = 0.3;
+			} else if (base > 660000 && base <= 960000) {
+				per = 0.35;
+			} else  {
+				per = 0.45;
+			}
+			return per;
+		}
+	</script>
+</html>
